@@ -1,10 +1,10 @@
 #include <iostream>
-#include <memory>
+#include <cstring>
 using namespace std;
 
 template <class Type>
 
-class Stack_seq
+class Stack
 {
 protected:
 	Type* pointer;
@@ -13,7 +13,7 @@ protected:
 
 public:
 	// Default Constructor
-	Stack_seq()
+	Stack()
 	{
 		pointer = new Type[10];
 		stackTop = -1;
@@ -21,7 +21,7 @@ public:
 	}
 
 	// Constructor with customized capacity
-	Stack_seq(int initial_capacity)
+	Stack(int initial_capacity)
 	{
 		if (initial_capacity <= 0)
 		{
@@ -40,7 +40,7 @@ public:
 	}
 
 	// Copy Constructor
-	Stack_seq(Stack_seq const &source)
+	Stack(Stack const &source)
 	{
 		cap = source.cap;
 		stackTop = source.stackTop;
@@ -49,7 +49,7 @@ public:
 	}
 
 	// Destructor
-	~Stack_seq()
+	~Stack()
 	{
 		delete[] pointer;
 	}
@@ -97,8 +97,19 @@ public:
 		return pointer[stackTop];
 	}
 
+	// Operation: take top
+	Type takeTop()
+	{
+		if (stackTop == -1)
+		{
+			cout << "Empty stack!" << endl;
+			exit(0);
+		}
+		return pointer[stackTop--];
+	}
+
 	// Operator: = 
-	Stack_seq& operator=(Stack_seq const &source)
+	Stack& operator=(Stack const &source)
 	{
 		if (source.stackTop > cap - 1)
 		{
@@ -136,6 +147,6 @@ public:
 	// Operation: capacity
 	int capacity()
 	{
-		return capacity;
+		return cap;
 	}
 };
